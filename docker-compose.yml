@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chat_backend_dev
+    image: deepsikder/chat-backend:v1
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - chat_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chat_frontend_dev
+    image: deepsikder/chat-frontend:v1
+    restart: unless-stopped
+    environment:
+      VITE_API_URL: ws://localhost:8080
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - chat_network
+
+networks:
+  chat_network:
+    driver: bridge
