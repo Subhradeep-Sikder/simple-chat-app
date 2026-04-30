@@ -75,6 +75,78 @@ npm run dev
 
 ---
 
+## 🌐 Deploying Online
+
+### How the Backend URL Works
+
+The frontend automatically detects the backend URL:
+- **Local Development:** Uses `ws://localhost:8080`
+- **Production:** Automatically uses `wss://your-domain.com:8080` (secure WebSocket)
+
+### Step 1: Build the Frontend
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+This creates a `/dist` folder with production-ready files.
+
+### Step 2: Deploy Backend
+
+Deploy the backend server to your hosting provider (Heroku, Railway, DigitalOcean, AWS, etc.):
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+**Important:** The backend must run on port `8080`.
+
+### Step 3: Deploy Frontend
+
+Deploy the `/frontend/dist` folder to a static hosting service:
+- **Vercel** (recommended)
+- **Netlify**
+- **GitHub Pages**
+- **AWS S3 + CloudFront**
+- **Any web server (Nginx, Apache)**
+
+### Step 4: Configure Environment Variables (Optional)
+
+If your backend runs on a different domain or port, create a `.env.production` file in the frontend directory:
+
+```bash
+# .env.production
+VITE_BACKEND_URL=wss://your-backend-domain.com:8080
+```
+
+Then rebuild:
+```bash
+npm run build
+```
+
+### Example Deployment Scenarios
+
+**Scenario 1: Backend and Frontend on Same Domain**
+- Backend: `https://chat.example.com:8080` (backend)
+- Frontend: `https://chat.example.com` (hosted static files)
+- ✅ Automatic detection works!
+
+**Scenario 2: Backend on Separate Domain**
+- Backend: `https://api.example.com:8080`
+- Frontend: `https://chat.example.com`
+- Add `.env.production`: `VITE_BACKEND_URL=wss://api.example.com:8080`
+
+**Scenario 3: Using Reverse Proxy (Recommended)**
+- Use Nginx/Apache to proxy `/ws` to backend
+- Everything appears on same domain
+- Simpler CORS/SSL configuration
+
+---
+
 ### Author's Note
 This project was developed to explore the fundamentals of **Full-Duplex Communication** and server-side state management.
 

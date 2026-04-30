@@ -22,8 +22,12 @@ export default function App() {
 
   function joinRoom() {
     if (!roomId || !name) return alert("Please enter name and room code");
-    
-    const ws = new WebSocket("ws://localhost:8080");
+
+    // Get backend URL from environment or construct from current domain
+    const backendUrl = import.meta.env.VITE_BACKEND_URL ||
+      `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.hostname}:8080`;
+
+    const ws = new WebSocket(backendUrl);
     
     ws.onopen = () => {
       ws.send(JSON.stringify({
