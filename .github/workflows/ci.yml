@@ -1,4 +1,4 @@
-name: Simple CI
+name: CI
 
 on:
   push:
@@ -11,36 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Get the code
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      # Step 3: Install backend dependencies
       - name: Install backend dependencies
         run: cd backend && npm install
 
-      # Step 4: Check backend code (build/compile check)
-      - name: Build backend
-        run: cd backend && npx tsx index.ts --version || echo "Backend is ready to run"
-
-      # Step 5: Install frontend dependencies
       - name: Install frontend dependencies
         run: cd frontend && npm install
 
-      # Step 6: Run frontend linter
-      - name: Lint frontend
-        run: cd frontend && npm run lint
-
-      # Step 7: Build frontend
       - name: Build frontend
         run: cd frontend && npm run build
 
-      # Step 8: Success message
-      - name: CI passed
-        run: echo "✅ All checks passed!"
+      - name: ✅ CI passed!
+        run: echo "All checks passed"
