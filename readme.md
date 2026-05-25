@@ -33,30 +33,7 @@ A simple, fast chat app where people can create temporary chat rooms and communi
 
 ---
 
-## 🚀 Quick Start (Docker)
-
-### Prerequisites
-- Docker and Docker Compose installed
-
-### Step 1: Clone the Repository
-```bash
-git clone https://github.com/Subhradeep-Sikder/simple-chat-app.git
-cd simple-chat-app
-```
-
-### Step 2: Run with Docker Compose
-```bash
-docker-compose -f docker-compose.prod.yml up
-```
-
-### Step 3: Open in Browser
-Visit: `http://localhost:5173`
-
-Open in two tabs with the same room code to test!
-
----
-
-## 🛠️ Quick Start (Local Development)
+## 🚀 Quick Start
 
 ### Step 1: Clone the Repository
 ```bash
